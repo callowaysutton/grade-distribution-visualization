@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Indiana Univerity Grade Distribution Visualization</title>
+
+    <!-- Include JQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Copyright © 2014 Monotype Imaging Inc. All rights reserved -->
+    <link href="https://cdn.jsdelivr.net/npm/boosted@5.3.3/dist/css/orange-helvetica.min.css" rel="stylesheet"
+        integrity="sha384-A0Qk1uKfS1i83/YuU13i2nx5pk79PkIfNFOVzTcjCMPGKIDj9Lqx9lJmV7cdBVQZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/boosted@5.3.3/dist/css/boosted.min.css" rel="stylesheet"
+        integrity="sha384-laZ3JUZ5Ln2YqhfBvadDpNyBo7w5qmWaRnnXuRwNhJeTEFuSdGbzl4ZGHAEnTozR" crossorigin="anonymous">
+    <link href="static/css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>IU Grade Distribution Visualization</h1>
+    <ul role="tablist" aria-owns="nav-tab1 nav-tab2 nav-tab3 nav-tab4" class="nav nav-tabs"
+        id="nav-tab-with-nested-tabs">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="nav-tab1" aria-current="page" data-bs-toggle="tab" href="#tab1-content"
+                data-bs-target="#tab1-content" role="tab" aria-controls="tab1-content"
+                aria-selected="true">Introduction</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="nav-tab2" data-bs-toggle="tab" href="#tab2-content" data-bs-target="#tab2-content"
+                role="tab" aria-controls="tab2-content" aria-selected="false">FA21</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="nav-tab3" data-bs-toggle="tab" href="#tab3-content" data-bs-target="#tab3-content"
+                role="tab" aria-controls="tab3-content" aria-selected="false">FA22</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="nav-tab4" data-bs-toggle="tab" href="#tab4-content" data-bs-target="#tab4-content"
+                role="tab" aria-controls="tab4-content" aria-selected="false">FA23</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="nav-tab5" data-bs-toggle="tab" href="#tab5-content" data-bs-target="#tab5-content"
+                role="tab" aria-controls="tab5-content" aria-selected="false">SP21</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="nav-tab6" data-bs-toggle="tab" href="#tab6-content" data-bs-target="#tab6-content"
+                role="tab" aria-controls="tab6-content" aria-selected="false">SP22</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="nav-tab7" data-bs-toggle="tab" href="#tab7-content" data-bs-target="#tab7-content"
+                role="tab" aria-controls="tab7-content" aria-selected="false">SP23</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="nav-tab8" data-bs-toggle="tab" href="#tab8-content" data-bs-target="#tab8-content"
+                role="tab" aria-controls="tab8-content" aria-selected="false">SU21</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="nav-tab9" data-bs-toggle="tab" href="#tab9-content" data-bs-target="#tab9-content"
+                role="tab" aria-controls="tab9-content" aria-selected="false">SU22</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="nav-tab10" data-bs-toggle="tab" href="#tab10-content"
+                data-bs-target="#tab10-content" role="tab" aria-controls="tab10-content" aria-selected="false">SU23</a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content" id="nav-tabs-content">
+        <div class="tab-pane show active" id="tab1-content" role="tabpanel" aria-labelledby="nav-tab1">
+            <h1>Introduction</h1>
+            <p><mark>Created by Calloway Sutton</mark></p>
+            <br />
+            <p>This website exists for three main reasons. The first, I was mad that at IU an A- isn't equal to a A+ as
+                it unfairly skews the grade distribution down. For any other letter grade, if you get the minus variant,
+                say a B-, you could work extra hard in an equivalent credit hour class and balance that towards getting
+                a B average. However, if you get an A- or below in a single class it is impossible to get that semesters
+                grade back up to a 4.0. So this visualization was going to be a two-fold demonstration as to how
+                changing the policy to where an A- equalling a 4.0 would do little to artificially inflate ~80% of
+                students but help fix the skew for the top 20%</p>
+            <p>The second reason I made this website was to learn PlotlyJS and D3.js, two visualization frameworks,
+                along with Julia. I saw Julia being used in various places and thought it looked interesting, even
+                though it's mostly used for Data Science applications, and it's actually been a blast to use. I usually
+                main using Python with PyO3 for performance critical code, but with Julia it's just straight up
+                unnecessary! You can leave things abstract for the price of performance, but if you need to optimize
+                performance from what I've seen it's only <em>around 25%</em>, or less, worse than my equivalent C code.
+                I also wanted to go out and make a website that was dynamic and interactive to show my friend that you
+                can do some amazing things in just pure client side code. I really can't wait to make another project
+                with Julia and I hope it gets more popular in the future as the language is just so nice to use.
+            </p>
+            <p>The third and final reason for this tool existing is to provide a fun way of looking at the different
+                classes provided by IU as well as giving a glimpse into what other major's courseloads could be like.
+            </p>
+            <p>This tool is mainly for visualizing the past semester's grade distribution across the campus, but let me
+                know if you think something even more useful could be made from this idea! You can contact me via the
+                handle <em>@callowaysutton</em> basically anywhere.</p>
+
+            <br />
+            <div class="text-center">
+                <h4>Sources</h4>
+                <a href="https://gradedistribution.registrar.indiana.edu/content/index.php">IU Grade Distribution</a>
+                <a href="https://plotly.com/javascript/">PlotlyJS Graphing Library</a>
+                <a href="https://jquery.com/">The Best Javascript Library Ever</a>
+                <a href="https://d3js.org/">D3.js Data-Driven Documents</a>
+                <a href="https://julialang.org/">Julia Programming Language</a>
+                <a href="https://github.com/callowaysutton/grade-distribution-visualization">Source Code</a>
+            </div>
+
+        </div>
+        <div class="tab-pane" id="tab2-content" role="tabpanel" aria-labelledby="nav-tab2">
+            <div class="iframe-container">
+                <iframe data-src="maps/FA21.html" width="100%" height="800px"></iframe>
+                <div class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab3-content" role="tabpanel" aria-labelledby="nav-tab3">
+            <div class="iframe-container">
+                <iframe data-src="maps/FA22.html" width="100%" height="800px"></iframe>
+                <div class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab4-content" role="tabpanel" aria-labelledby="nav-tab4">
+            <div class="iframe-container">
+                <iframe data-src="maps/FA23.html" width="100%" height="800px"></iframe>
+                <div class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab5-content" role="tabpanel" aria-labelledby="nav-tab5">
+            <div class="iframe-container">
+                <iframe data-src="maps/SP21.html" width="100%" height="800px"></iframe>
+                <div class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab6-content" role="tabpanel" aria-labelledby="nav-tab6">
+            <div class="iframe-container">
+                <iframe data-src="maps/SP22.html" width="100%" height="800px"></iframe>
+                <div class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab7-content" role="tabpanel" aria-labelledby="nav-tab7">
+            <div class="iframe-container">
+                <iframe data-src="maps/SP23.html" width="100%" height="800px"></iframe>
+                <div class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab8-content" role="tabpanel" aria-labelledby="nav-tab8">
+            <div class="iframe-container">
+                <iframe data-src="maps/SU21.html" width="100%" height="800px"></iframe>
+                <div class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab9-content" role="tabpanel" aria-labelledby="nav-tab9">
+            <div class="iframe-container">
+                <iframe data-src="maps/SU22.html" width="100%" height="800px"></iframe>
+                <div class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab10-content" role="tabpanel" aria-labelledby="nav-tab10">
+            <div class="iframe-container">
+                <iframe data-src="maps/SU23.html" width="100%" height="800px"></iframe>
+                <div class="spinner spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/boosted@5.3.3/dist/js/boosted.bundle.min.js"
+        integrity="sha384-3RoJImQ+Yz4jAyP6xW29kJhqJOE3rdjuu9wkNycjCuDnGAtC/crm79mLcwj1w2o/"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/focus-visible@5.2.0/dist/focus-visible.min.js"
+        integrity="sha384-xRa5B8rCDfdg0npZcxAh+RXswrbFk3g6dlHVeABeluN8EIwdyljz/LqJgc2R3KNA"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var iframes = $('iframe[data-src]');
+
+            if ('IntersectionObserver' in window) {
+                let observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            let iframe = entry.target;
+                            iframe.src = iframe.getAttribute('data-src');
+                            iframe.onload = function () {
+                                $(iframe).siblings('.spinner').hide();
+                                $(iframe).show();
+                            };
+                            observer.unobserve(iframe);
+                        }
+                    });
+                });
+
+                iframes.each(function () {
+                    observer.observe(this);
+                });
+            } else {
+                // Fallback for browsers that don't support IntersectionObserver
+                iframes.each(function () {
+                    let iframe = $(this);
+                    iframe.attr('src', iframe.data('src'));
+                    iframe.onload = function () {
+                        $(iframe).siblings('.spinner').hide();
+                        $(iframe).show();
+                    };
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

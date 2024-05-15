@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indiana Univerity Grade Distribution Visualization</title>
+
+  <!-- Include JQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Copyright © 2014 Monotype Imaging Inc. All rights reserved -->
+  <link href="https://cdn.jsdelivr.net/npm/boosted@5.3.3/dist/css/orange-helvetica.min.css" rel="stylesheet"
+    integrity="sha384-A0Qk1uKfS1i83/YuU13i2nx5pk79PkIfNFOVzTcjCMPGKIDj9Lqx9lJmV7cdBVQZ" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/boosted@5.3.3/dist/css/boosted.min.css" rel="stylesheet"
+    integrity="sha384-laZ3JUZ5Ln2YqhfBvadDpNyBo7w5qmWaRnnXuRwNhJeTEFuSdGbzl4ZGHAEnTozR" crossorigin="anonymous">
+  <link href="static/css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+  <h1>IU Grade Distribution Visualization</h1>
+  <ul role="tablist" aria-owns="nav-tab1 nav-tab2 nav-tab3 nav-tab4" class="nav nav-tabs" id="nav-tab-with-nested-tabs">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="nav-tab1" aria-current="page" data-bs-toggle="tab" href="#tab1-content"
+        data-bs-target="#tab1-content" role="tab" aria-controls="tab1-content" aria-selected="true">Introduction</a>
+    </li>
+    <<tabs>>
+  </ul>
+
+  <div class="tab-content" id="nav-tabs-content">
+    <div class="tab-pane show active" id="tab1-content" role="tabpanel" aria-labelledby="nav-tab1">
+      <h1>Introduction</h1>
+      <p>This is a visualization of the grade distribution at Indiana University. The data is from the Fall 2020
+        semester and is broken down by department and course. The visualization is interactive and allows you to explore
+        the data in different ways.</p>
+    </div>
+    <<iframes>>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/boosted@5.3.3/dist/js/boosted.bundle.min.js"
+    integrity="sha384-3RoJImQ+Yz4jAyP6xW29kJhqJOE3rdjuu9wkNycjCuDnGAtC/crm79mLcwj1w2o/"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/focus-visible@5.2.0/dist/focus-visible.min.js"
+    integrity="sha384-xRa5B8rCDfdg0npZcxAh+RXswrbFk3g6dlHVeABeluN8EIwdyljz/LqJgc2R3KNA"
+    crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      var iframes = $('iframe[data-src]');
+
+      if ('IntersectionObserver' in window) {
+        let observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              let iframe = entry.target;
+              iframe.src = iframe.getAttribute('data-src');
+              iframe.onload = function () {
+                $(iframe).siblings('.spinner').hide();
+                $(iframe).show();
+              };
+              observer.unobserve(iframe);
+            }
+          });
+        });
+
+        iframes.each(function () {
+          observer.observe(this);
+        });
+      } else {
+        // Fallback for browsers that don't support IntersectionObserver
+        iframes.each(function () {
+          let iframe = $(this);
+          iframe.attr('src', iframe.data('src'));
+          iframe.onload = function () {
+            $(iframe).siblings('.spinner').hide();
+            $(iframe).show();
+          };
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+/*
+ * Custom CSS
+ */
+
+:root {
+  --bs-body-bg: var(#FFF);
+}
+
+html {
+  margin-left: 15vw;
+  margin-right: 15vw;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.iframe-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  position: absolute;
+}
